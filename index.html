@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fortune Cookie</title>
+  <style>
+    body {
+      margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#fbeee6 0%,#e0c3fc 100%);
+      font-family:sans-serif;
+    }
+    #cookie {
+      font-size:7rem; cursor:pointer; user-select:none;
+      box-shadow:0 4px 24px #0002; border-radius:50%; background:#fff8; padding:1.5rem;
+      transition:opacity .4s;
+    }
+    #card {
+      background:#fff; border-radius:1rem; box-shadow:0 4px 24px #0002;
+      padding:2rem 1.5rem; min-width:220px; text-align:center;
+      opacity:0; animation:fadein .6s forwards;
+    }
+    @keyframes fadein { to { opacity:1; } }
+    #fortune { margin-bottom:1.2rem; font-size:1.1rem; color:#7a5c2e; }
+    button {
+      background:#e0c3fc; border:none; border-radius:.5rem;
+      padding:.5rem 1.2rem; font-size:1rem; cursor:pointer; color:#7a5c2e;
+      box-shadow:0 2px 8px #0001; transition:background .2s;
+    }
+    button:hover { background:#fbeee6; }
+  </style>
+</head>
+<body>
+  <div id="cookie" title="Click for your fortune!">🥠</div>
+  <script>
+    const fortunes=[
+      "You will have a pleasant surprise.",
+      "A thrilling time is in your immediate future.",
+      "Now is the time to try something new.",
+      "Your talents will be recognized and rewarded.",
+      "Happiness begins with facing life with a smile.",
+      "A fresh start will put you on your way.",
+      "You will make a valuable discovery.",
+      "Adventure can be real happiness.",
+      "Your ability for accomplishment will follow with success.",
+      "A lifetime friend shall soon be made."
+    ];
+    const cookie=document.getElementById('cookie');
+    function showFortune() {
+      cookie.style.display='none';
+      showCard();
+    }
+    function showCard() {
+      let card=document.getElementById('card');
+      if(!card){
+        card=document.createElement('div');
+        card.id='card';
+        document.body.appendChild(card);
+      }
+      card.innerHTML=`<div id="fortune">${fortunes[Math.floor(Math.random()*fortunes.length)]}</div>
+        <button onclick="showCard()">Open another</button>`;
+      card.style.opacity=0;
+      setTimeout(()=>card.style.opacity=1,10);
+    }
+    cookie.onclick=showFortune;
+  </script>
+</body>
+</html>
